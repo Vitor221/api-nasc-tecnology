@@ -5,8 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,6 +26,18 @@ class UserSubscribeServiceTest {
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertEquals(user.getName(), response.getBody().getName());
         assertEquals(user.getEmail(), response.getBody().getEmail());
+    }
+
+    @Test
+    public void listAllUserSubscribe_ReturnsUser() {
+        UserSubscribe userSubscribe = new UserSubscribe(null, "User Root", "12345");
+        restTemplate.postForEntity("/usersubscribe", userSubscribe, UserSubscribe.class);
+
+        ResponseEntity<List> response = restTemplate.getForEntity("/usersubscribe", List.class);
+
+        System.out.println(response);
+        assertNotNull(response);
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
 
 }
