@@ -5,6 +5,8 @@ import com.nasctecnology.subscribe.repositories.UserSubscribeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserSubscribeService {
 
@@ -15,4 +17,7 @@ public class UserSubscribeService {
         return repository.save(userSubscribe);
     }
 
+    public List<UserSubscribe> findAll() {
+        return repository.findAll();
+    }
 }
